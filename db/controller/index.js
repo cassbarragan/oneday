@@ -3,16 +3,15 @@ const {QueryTypes} = require('sequelize');
 
 module.exports = {
   getEntries: async (req, res) => {
-    let { page, count } = req.query;
-    if (!page) { page = 1; };
-    if (!count) { count = 5; };
-    let updateCount = count * (page-1);
-    const queryString = `SELECT * FROM public.entries LIMIT ${page} OFFSET ${updateCount};`;
+    const queryString = `SELECT * FROM public.entries;`;
     const result = await sequelize.query(queryString,  { type: QueryTypes.SELECT });
     res.send(result);
   },
 
-  addEntry: (req, res) => {
-    res.alert('Successfully recorded! See you tomorrow- same place, same time.');
+  addEntry: async (req, res) => {
+    const newEntry = req.query;
+    const queryString = `INSERT INTO public.entries (name, date, entry) VALUES ('${newEntry.name}', '${newEntry.date}', '${newEntry.entry}');`;
+    const result = await sequelize.query(queryString,  { type: QueryTypes.INSERT });
+    res.send('Successfully recorded! See you tomorrow- same place, same time.');
   }
 };
