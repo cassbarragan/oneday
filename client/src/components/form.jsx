@@ -16,43 +16,33 @@ const FormContainer = styled.div`
 `;
 
 const Form = () => {
-  var { entries, setEntries } = useContext(dataContext);
+  var { entries, setEntries, getEntries } = useContext(dataContext);
   const [nameValue, setNameValue] = useState("");
   const [dateValue, setDateValue] = useState("");
   const [textValue, setTextValue] = useState("");
-
-  console.log(
-    "name value:",
-    nameValue,
-    "datevalue:",
-    dateValue,
-    "text value:",
-    textValue
-  );
-
-  const addEntry = async (entry) => {
-    const entryName = entry.name;
-    const entryDate = entry.date;
-    const entryText = entry.text;
-    await axios
-      .post(`/addEntry`, {
-        name: entryName,
-        date: entryDate,
-        entry: entryText,
-      })
-      .then(() => res.status(200).send("submitted"))
-      .catch(() => res.status(404).send("error submitting"));
-  };
 
   const onNameChange = (e) => setNameValue(e.target.value);
   const onDateChange = (e) => setDateValue(e.target.value);
   const onTextChange = (e) => setTextValue(e.target.value);
 
-  const handleSubmit = () => addEntry({ nameValue, dateValue, textValue });
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post(`/addentry`, {
+        name: nameValue,
+        date: dateValue,
+        entry: textValue,
+      })
+      .then(() => console.log("submitted"))
+      .then(() => getEntries())
+      .catch((err) => console.log("error:", err));
+  }
+
 
   const handleReset = () => setNameValue("");
-  // setDateValue("")
-  // setTextValue("")
+
 
   return (
     <FormContainer>
@@ -84,10 +74,10 @@ const Form = () => {
         variant="filled"
       />
       <Box sx={{ '& button': { m: 1 } }} >
-      <Button variant="contained" size="small" onClick={handleSubmit}>
+      <Button variant="outlined" size="small" onClick={handleSubmit}>
         Submit
       </Button>
-      <Button variant="contained" size="small" onClick={handleReset}>
+      <Button variant="outlined" size="small" onClick={handleReset}>
         Reset
       </Button>
       </Box>

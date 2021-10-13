@@ -9,7 +9,7 @@ module.exports = {
   },
 
   addEntry: async (req, res) => {
-    const newEntry = req.query;
+    const newEntry = req.body;
     const queryString = `INSERT INTO public.entries (name, date, entry) VALUES ('${newEntry.name}', '${newEntry.date}', '${newEntry.entry}');`;
     const result = await sequelize.query(queryString,  { type: QueryTypes.INSERT });
     res.send('Successfully recorded! See you tomorrow- same place, same time.');

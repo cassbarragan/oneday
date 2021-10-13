@@ -41,6 +41,7 @@ const App = () => {
       value={{
         entries,
         setEntries,
+        getEntries
       }}
     >
       <div className="App">
