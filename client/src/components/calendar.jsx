@@ -20,8 +20,8 @@ const Calendar = () => {
       {
         start: [2021, 10, 14, 17, 30],
         duration: { hours: 0, minutes: 15 },
-        title: "Daily Coding Journal",
-        description: "Reminder to log your progress for the day",
+        title: "JOURNAL TIME!",
+        description: "Reminder to log your progress for the day! Click the link below.",
         url: "http://localhost:3000",
         busyStatus: "BUSY",
         recurrenceRule: "FREQ=DAILY"
