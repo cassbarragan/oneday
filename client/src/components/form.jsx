@@ -5,6 +5,9 @@ import { Button, Paper, Box } from "@material-ui/core";
 import { dataContext } from "../context/dataContext.js";
 import axios from "axios";
 import styled from "styled-components";
+import { LocalizationProvider, DatePicker } from "@material-ui/lab";
+import { format, compareAsc } from "date-fns";
+import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 
 const FormContainer = styled.div`
   display: flex;
@@ -22,15 +25,14 @@ const Form = () => {
   const [textValue, setTextValue] = useState("");
 
   const onNameChange = (e) => setNameValue(e.target.value);
-  const onDateChange = (e) => setDateValue(e.target.value);
+  const onDateChange = (e) => setDateValue(e);
   const onTextChange = (e) => setTextValue(e.target.value);
 
-
-
-
   const handleSubmit = (e) => {
+    // console.log("dateValue:", dateValue);
     e.preventDefault();
-    axios.post(`/addentry`, {
+    axios
+      .post(`/addentry`, {
         name: nameValue,
         date: dateValue,
         entry: textValue,
@@ -38,11 +40,9 @@ const Form = () => {
       .then(() => console.log("submitted"))
       .then(() => getEntries())
       .catch((err) => console.log("error:", err));
-  }
-
+  };
 
   const handleReset = () => setNameValue("");
-
 
   return (
     <FormContainer>
@@ -54,32 +54,35 @@ const Form = () => {
         id="filled-basic"
         variant="filled"
       />
-      <TextField
-        onChange={onDateChange}
-        value={dateValue}
-        label={"Date"}
-        sx={{ m: 2, width: "35ch" }}
-        id="filled-basic"
-        variant="filled"
-      />
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          label="Date"
+          value={dateValue}
+          format={'MM-DD-YYYY'}
+          onChange={(newValue) => {
+            onDateChange(newValue);
+          }}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </LocalizationProvider>
       <TextField
         id="outlined-multiline-static"
         multiline
         rows={10}
         onChange={onTextChange}
         value={textValue}
-        label={"Journal Entry"}
-        sx={{ m: 2, width: "70ch" }}
+        label={"Journal Entry: include at least one Challenge, Action, and Result from today."}
+        sx={{ m: 2, width: "90ch" }}
         id="filled-basic"
         variant="filled"
       />
-      <Box sx={{ '& button': { m: 1 } }} >
-      <Button variant="outlined" size="small" onClick={handleSubmit}>
-        Submit
-      </Button>
-      <Button variant="outlined" size="small" onClick={handleReset}>
-        Reset
-      </Button>
+      <Box sx={{ "& button": { m: 1 } }}>
+        <Button variant="outlined" size="small" onClick={handleSubmit}>
+          Submit
+        </Button>
+        <Button variant="outlined" size="small" onClick={handleReset}>
+          Reset
+        </Button>
       </Box>
     </FormContainer>
   );

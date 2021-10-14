@@ -28,19 +28,27 @@
     "@material-ui/lab": "^5.0.0-alpha.44",
     "@material/textfield": "^13.0.0",
     "@mui/material": "^5.0.3",
+    "@mui/styles": "^5.0.1",
     "axios": "^0.23.0",
     "babel-loader": "^8.2.2",
     "compression": "^1.7.4",
+    "date-fns": "^2.25.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "ics": "^2.31.0",
+    "moment": "^2.29.1",
     "pg": "^8.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-search-field": "^2.0.1",
     "regenerator-runtime": "^0.13.9",
     "sequelize": "^6.7.0",
     "styled-components": "^5.3.1",
     "webfontloader": "^1.6.28",
     "webpack": "^5.58.1",
     "webpack-cli": "^4.9.0"
+  },
+  "browser": {
+    "fs": false
   }
 }
