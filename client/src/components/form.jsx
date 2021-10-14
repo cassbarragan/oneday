@@ -16,6 +16,10 @@ const FormContainer = styled.div`
   margin-bottom: 2rem;
   align-items: center;
   justify-content: center;
+  background-color: #fefcf6;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
 `;
 
 const Form = () => {
@@ -42,7 +46,7 @@ const Form = () => {
       .catch((err) => console.log("error:", err));
   };
 
-  const handleReset = () => setNameValue("");
+  const handleReset = () => setTextValue("");
 
   return (
     <FormContainer>
@@ -52,13 +56,13 @@ const Form = () => {
         label={"Name"}
         sx={{ m: 2, width: "35ch" }}
         id="filled-basic"
-        variant="filled"
+        variant="outlined"
       />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label="Date"
           value={dateValue}
-          format={'MM-DD-YYYY'}
+          format={"MM-DD-YYYY"}
           onChange={(newValue) => {
             onDateChange(newValue);
           }}
@@ -71,17 +75,19 @@ const Form = () => {
         rows={10}
         onChange={onTextChange}
         value={textValue}
-        label={"Journal Entry: include at least one Challenge, Action, and Result from today."}
+        label={
+          "Journal Entry: include at least one Challenge, Action, and Result from today."
+        }
         sx={{ m: 2, width: "90ch" }}
         id="filled-basic"
-        variant="filled"
+        variant="outlined"
       />
       <Box sx={{ "& button": { m: 1 } }}>
         <Button variant="outlined" size="small" onClick={handleSubmit}>
-          Submit
+          Save
         </Button>
         <Button variant="outlined" size="small" onClick={handleReset}>
-          Reset
+          Reset Text
         </Button>
       </Box>
     </FormContainer>
