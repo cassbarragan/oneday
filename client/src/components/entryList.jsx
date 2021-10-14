@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
-
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { Button, Paper, Box } from "@material-ui/core";
 import { dataContext } from "../context/dataContext.js";
+import moment from 'moment';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -15,11 +15,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const EntryList = () => {
   var { entries, setEntries } = useContext(dataContext);
+  const reversed = entries.reverse();
 
   return (
     <div>
       <Stack spacing={10}>
-        {entries.map((item) => {
+        {reversed.map((item) => {
           return (
             <Box
               component="span"
@@ -33,8 +34,8 @@ const EntryList = () => {
               }}
             >
               <Item onClick={() => console.log("clicked")}>
-                <Typography variant="h6" gutterBottom component="div">
-                  {item.date}
+                <Typography variant="subtitle1" gutterBottom component="div">
+                    {moment(item.date).format("dddd, MMMM Do YYYY, h:mm:ss a")}
                 </Typography>
                 <Typography variant="h5" gutterBottom component="div">
                   {item.name}

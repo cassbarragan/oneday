@@ -58,6 +58,7 @@ const Form = () => {
         <DatePicker
           label="Date"
           value={dateValue}
+          format={'MM-DD-YYYY'}
           onChange={(newValue) => {
             onDateChange(newValue);
           }}
@@ -70,8 +71,8 @@ const Form = () => {
         rows={10}
         onChange={onTextChange}
         value={textValue}
-        label={"Journal Entry"}
-        sx={{ m: 2, width: "70ch" }}
+        label={"Journal Entry: include at least one Challenge, Action, and Result from today."}
+        sx={{ m: 2, width: "90ch" }}
         id="filled-basic"
         variant="filled"
       />
