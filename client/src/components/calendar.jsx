@@ -24,15 +24,7 @@ const Calendar = () => {
         description: "Reminder to log your progress for the day",
         url: "http://localhost:3000",
         busyStatus: "BUSY",
-        recurrenceRule: "FREQ=DAILY",
-        alarms: {
-          action: "audio",
-          description: "Reminder",
-          trigger: { hours: 0, minutes: 5, before: true },
-          repeat: 2,
-          attachType: "VALUE=URI",
-          attach: "Glass",
-        },
+        recurrenceRule: "FREQ=DAILY"
       },
       (error, value) => {
         if (error) {
